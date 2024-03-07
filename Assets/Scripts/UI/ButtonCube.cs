@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonCubeList : MonoBehaviour
+public class ButtonCube : MonoBehaviour
 {
     #region Fields And Variables
     [SerializeField] private TextMeshProUGUI buttonTitle;

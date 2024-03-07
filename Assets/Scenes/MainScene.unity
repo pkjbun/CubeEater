@@ -970,6 +970,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 884016912}
+  - component: {fileID: 884016913}
   m_Layer: 0
   m_Name: '[UIManager]'
   m_TagString: Untagged
@@ -993,6 +994,23 @@ Transform:
   - {fileID: 970426562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884016913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884016911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf746e1e32a83846ac63416f4cba66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList: {fileID: 11400000, guid: 171690acfc60d124b96afd6b2c8dd224, type: 2}
+  cubeButtonPrefab: {fileID: 7626390719542264088, guid: f30376a9db31e8147a7b4f3faa0a0505,
+    type: 3}
+  content: {fileID: 229070234}
+  cubeList: []
 --- !u!1 &907877141
 GameObject:
   m_ObjectHideFlags: 0
