@@ -90,7 +90,7 @@ public class UIListOfObjectsManager : MonoBehaviour
     /// <param name="input">Input string used for filtering</param>
     /// <returns>Returns List of ButtonCube that matches input string</returns>
     public List<ButtonCube> FilterCubes(List<ButtonCube> cubes, string input){   
-        return cubes.Where(cube => cube.GetItemName().IndexOf(input, StringComparison.InvariantCulture) >= 0).ToList();
+        return cubes.Where(cube => cube.GetItemName().IndexOf(input, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
     }
     #endregion
 }
