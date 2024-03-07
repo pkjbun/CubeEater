@@ -1012,6 +1012,10 @@ MonoBehaviour:
   content: {fileID: 229070234}
   cubeList: []
   inputField: {fileID: 327074890}
+  uIAnimation: {fileID: 970426563}
+  buttonCubeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &907877141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,9 +1332,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 1313766843}
-  rectPosition1: {fileID: 0}
-  rectPosition2: {fileID: 0}
-  duration: 2
+  rectPosition1: {fileID: 335396511}
+  rectPosition2: {fileID: 1657715494}
+  duration: 1
 --- !u!1 &991996550
 GameObject:
   m_ObjectHideFlags: 0

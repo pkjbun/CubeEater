@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class UIListOfObjectsManager : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class UIListOfObjectsManager : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] List<ButtonCube> cubeList;
     [SerializeField] TMP_InputField inputField;
+    [SerializeField] UIAnimation uIAnimation;
+    public UnityEvent<ButtonCube> buttonCubeEvent=new UnityEvent<ButtonCube>();
     public List<ButtonCube> CubeList { get => cubeList; }
     #endregion
     #region Unity Methods
@@ -21,6 +25,7 @@ public class UIListOfObjectsManager : MonoBehaviour
         foreach(var item in itemList.Items) { 
             ButtonCube cubeItem=  Instantiate(cubeButtonPrefab,content);
             cubeItem.Setup(item);
+            cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
             cubeList.Add(cubeItem);
         }
         if(inputField != null)
@@ -29,13 +34,24 @@ public class UIListOfObjectsManager : MonoBehaviour
         }
     }
 
+   
+
     // Update is called once per frame
     void Update()
     {
         
     }
 #endregion
-#region Custom Methods
+#region Custom Methods   
+    /// <summary>
+    /// Handles Button Clicked
+    /// </summary>
+    /// <param name="cubeItem">clicked ButtonCube</param>
+    private void OnItemClicked(ButtonCube cubeItem)
+    {
+        uIAnimation.Animate();
+        buttonCubeEvent?.Invoke(cubeItem);
+    }
     /// <summary>
     /// Filters list basing on Input String
     /// </summary>
