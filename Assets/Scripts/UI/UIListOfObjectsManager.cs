@@ -1,5 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class UIListOfObjectsManager : MonoBehaviour
@@ -9,15 +11,21 @@ public class UIListOfObjectsManager : MonoBehaviour
     [SerializeField] ButtonCube cubeButtonPrefab;
     [SerializeField] Transform content;
     [SerializeField] List<ButtonCube> cubeList;
+    [SerializeField] TMP_InputField inputField;
+    public List<ButtonCube> CubeList { get => cubeList; }
     #endregion
-#region Unity Methods
+    #region Unity Methods
     // Start is called before the first frame update
     void Start()
     {
         foreach(var item in itemList.Items) { 
-             ButtonCube cubeItem=  Instantiate(cubeButtonPrefab,content);
+            ButtonCube cubeItem=  Instantiate(cubeButtonPrefab,content);
             cubeItem.Setup(item);
             cubeList.Add(cubeItem);
+        }
+        if(inputField != null)
+        {
+            inputField.onValueChanged.AddListener(Filter);
         }
     }
 
@@ -28,5 +36,41 @@ public class UIListOfObjectsManager : MonoBehaviour
     }
 #endregion
 #region Custom Methods
-#endregion
+    /// <summary>
+    /// Filters list basing on Input String
+    /// </summary>
+    /// <param name="text"></param>
+    public void Filter(string text)
+    {
+        if(string.IsNullOrEmpty(text))
+        {
+            SetActiveAllItemsInList(cubeList, true);
+            return;
+        }
+        SetActiveAllItemsInList(cubeList, false);
+        SetActiveAllItemsInList( FilterCubes(cubeList, text), true);
+
+    }
+    /// <summary>
+    /// Change active state of list of ButtonCubes
+    /// </summary>
+    /// <param name="list">List of Cubes</param>
+    /// <param name="active">Set Active Game Object?</param>
+    private void SetActiveAllItemsInList(List<ButtonCube> list, bool active)
+    {
+        foreach (ButtonCube bc in list)
+        {
+            bc.gameObject.SetActive(active);
+        }
+    }
+    /// <summary>
+    /// Returns List of ButtonCube that matches input string
+    /// </summary>
+    /// <param name="cubes">List of ButtonCubes</param>
+    /// <param name="input">Input string used for filtering</param>
+    /// <returns>Returns List of ButtonCube that matches input string</returns>
+    public List<ButtonCube> FilterCubes(List<ButtonCube> cubes, string input){   
+        return cubes.Where(cube => cube.GetItemName().IndexOf(input, StringComparison.InvariantCulture) >= 0).ToList();
+    }
+    #endregion
 }

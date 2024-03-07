@@ -35,5 +35,14 @@ public class ButtonCube : MonoBehaviour
         buttonTitle.text=itemData.title;
         image.sprite = itemData.thumbnail;
     }
+    /// <summary>
+    /// Get tile of object from object data
+    /// </summary>
+    /// <returns></returns>
+    public string GetItemName()
+    {   
+      string title= itemData?  itemData.name :  "";
+        return title;
+    }
     #endregion
 }

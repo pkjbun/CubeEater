@@ -1011,6 +1011,7 @@ MonoBehaviour:
     type: 3}
   content: {fileID: 229070234}
   cubeList: []
+  inputField: {fileID: 327074890}
 --- !u!1 &907877141
 GameObject:
   m_ObjectHideFlags: 0
