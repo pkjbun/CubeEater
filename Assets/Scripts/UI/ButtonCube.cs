@@ -1,14 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ButtonCube : MonoBehaviour
+public class ButtonCube : MonoBehaviour, ISpawnableButton
 {
     #region Fields And Variables
     [SerializeField] private TextMeshProUGUI buttonTitle;
     [SerializeField] private Image image;
     [SerializeField] ItemData itemData;
-
+    public UnityEvent OnActionFinished = new UnityEvent();
     #endregion
 #region Unity Methods
     // Start is called before the first frame update
@@ -43,6 +44,20 @@ public class ButtonCube : MonoBehaviour
     {   
       string title= itemData?  itemData.name :  "";
         return title;
+    }
+
+    public void OnClickToSpawn()
+    {
+        OnActionFinished.Invoke();
+    }
+
+    public GameObject GetObjectToSpawn()
+    {
+        if(itemData == null) return null;
+        else
+        {
+           return itemData.cubePrefab;
+        }
     }
     #endregion
 }

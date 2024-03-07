@@ -15,7 +15,7 @@ public class UIListOfObjectsManager : MonoBehaviour
     [SerializeField] List<ButtonCube> cubeList;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] UIAnimation uIAnimation;
-    public UnityEvent<ButtonCube> buttonCubeEvent=new UnityEvent<ButtonCube>();
+    public UnityEvent<ISpawnableButton> buttonCubeEvent=new UnityEvent<ISpawnableButton>();
     public List<ButtonCube> CubeList { get => cubeList; }
     #endregion
     #region Unity Methods
@@ -26,6 +26,7 @@ public class UIListOfObjectsManager : MonoBehaviour
             ButtonCube cubeItem=  Instantiate(cubeButtonPrefab,content);
             cubeItem.Setup(item);
             cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
+            cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
             cubeList.Add(cubeItem);
         }
         if(inputField != null)
@@ -33,10 +34,6 @@ public class UIListOfObjectsManager : MonoBehaviour
             inputField.onValueChanged.AddListener(Filter);
         }
     }
-
-   
-
-    // Update is called once per frame
     void Update()
     {
         
@@ -44,13 +41,20 @@ public class UIListOfObjectsManager : MonoBehaviour
 #endregion
 #region Custom Methods   
     /// <summary>
+    /// Called after actionIsFinished or canceled
+    /// </summary>
+    private void OnSpawnFinished()
+    {
+        uIAnimation?.MoveToOriginalPosition();
+    }
+    /// <summary>
     /// Handles Button Clicked
     /// </summary>
-    /// <param name="cubeItem">clicked ButtonCube</param>
-    private void OnItemClicked(ButtonCube cubeItem)
+    /// <param name="item">clicked button</param>
+    private void OnItemClicked(ISpawnableButton item)
     {
-        uIAnimation.Animate();
-        buttonCubeEvent?.Invoke(cubeItem);
+        uIAnimation?.Animate();
+        buttonCubeEvent?.Invoke(item);
     }
     /// <summary>
     /// Filters list basing on Input String
