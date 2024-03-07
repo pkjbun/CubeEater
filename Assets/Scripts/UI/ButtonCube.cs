@@ -12,17 +12,7 @@ public class ButtonCube : MonoBehaviour, ISpawnableButton
     public UnityEvent OnActionFinished = new UnityEvent();
     #endregion
 #region Unity Methods
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 #endregion
 #region Custom Methods
     public void Setup(ItemData ItemData)
@@ -48,7 +38,7 @@ public class ButtonCube : MonoBehaviour, ISpawnableButton
 
     public void OnClickToSpawn()
     {
-        OnActionFinished.Invoke();
+        OnActionFinished?.Invoke();
     }
 
     public GameObject GetObjectToSpawn()

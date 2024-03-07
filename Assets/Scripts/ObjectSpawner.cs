@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] GameObject currentObjectToSpawn;
     [SerializeField] ISpawnableButton currentPressedButton;
     [SerializeField] LayerMask detectionLayers;
+    private static List<GameObject> spawns = new List<GameObject>();
+    
     #region Fields And Variables
     #endregion
     #region Unity Methods
@@ -17,11 +19,27 @@ public class ObjectSpawner : MonoBehaviour
         {
             RayCastHandle();
         }
+        if(Input.GetKeyDown(KeyCode.Escape)) { 
+            CancelSpawning();
+        }
     }
-
-  
     #endregion
     #region Custom Methods
+    /// <summary>
+    /// Cancel Spawn Process
+    /// </summary>
+    public void CancelSpawning()
+    {
+        currentPressedButton?.OnClickToSpawn();
+        Destroy(currentObjectToSpawn);
+            currentObjectToSpawn = null;
+            currentPressedButton = null;
+    }
+    public static List<GameObject> Spawns()
+    {
+        spawns.RemoveAll(item => item == null);
+        return spawns;
+    }
     /// <summary>
     /// Called to Start Procedure of SpawningByButton
     /// </summary>
@@ -32,6 +50,7 @@ public class ObjectSpawner : MonoBehaviour
         if (button.GetObjectToSpawn() != null)
         {
             currentObjectToSpawn= Instantiate(button.GetObjectToSpawn());
+            currentObjectToSpawn.SetActive(false);
         }
     }
   private void RayCastHandle()
@@ -43,12 +62,13 @@ public class ObjectSpawner : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, detectionLayers))
         {
             // Move currentObjectToSpawn to the hit point using DOTween
-            currentObjectToSpawn.transform.DOMove(hit.point, 0.1f); 
+            currentObjectToSpawn.transform.position =Vector3.Slerp(currentObjectToSpawn.transform.position, hit.point, 0.8f);
+            currentObjectToSpawn.SetActive(true);
 
-        
             if (Input.GetMouseButtonDown(0))
             {
                 currentObjectToSpawn.GetComponent<ISpawnable>()?.OnObjectSpawned();
+                if(currentObjectToSpawn.GetComponent<IEatable>() != null) { spawns.Add(currentObjectToSpawn); }
                 if (currentPressedButton != null)
                 {
                     currentPressedButton.OnClickToSpawn();

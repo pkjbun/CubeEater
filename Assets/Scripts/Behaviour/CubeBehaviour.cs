@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CubeBehaviour : MonoBehaviour, ISpawnable
+public class CubeBehaviour : MonoBehaviour, ISpawnable, IEatable
 {
     
     #region Fields And Variables
@@ -25,7 +25,8 @@ public class CubeBehaviour : MonoBehaviour, ISpawnable
 public void OnObjectSpawned()
     {
         gameObject.transform.position += new Vector3(0, 0.1f, 0);
-        Rigidbody rb = gameObject.GetOrAddComponent<Rigidbody>();
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
     }
