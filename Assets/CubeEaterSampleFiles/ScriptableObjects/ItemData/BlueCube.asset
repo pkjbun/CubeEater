@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: BlueCube
   thumbnail: {fileID: 21300000, guid: bd50da7b8198c2c4b98cd453f698c30e, type: 3}
-  cubePrefab: {fileID: 2919298105730889846, guid: 2a3844856088c49418786834cc8d9f63,
+  cubePrefab: {fileID: 2360480652381680429, guid: 2a3844856088c49418786834cc8d9f63,
     type: 3}

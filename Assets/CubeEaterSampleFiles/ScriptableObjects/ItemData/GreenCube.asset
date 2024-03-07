@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: GreenCube
   thumbnail: {fileID: 21300000, guid: ab465cf9593f2db4c9a5b2cfe7026c00, type: 3}
-  cubePrefab: {fileID: 6654752240704503372, guid: 5ace152886c3b7e43be9f86e2463f9db,
+  cubePrefab: {fileID: 1805786439929549669, guid: 5ace152886c3b7e43be9f86e2463f9db,
     type: 3}
