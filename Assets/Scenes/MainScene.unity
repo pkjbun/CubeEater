@@ -1309,9 +1309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 1313766843}
-  RectPosition1: {fileID: 335396511}
-  RectPosition2: {fileID: 1657715494}
-  Duration: 1
+  rectPosition1: {fileID: 0}
+  rectPosition2: {fileID: 0}
+  duration: 2
 --- !u!1 &991996550
 GameObject:
   m_ObjectHideFlags: 0

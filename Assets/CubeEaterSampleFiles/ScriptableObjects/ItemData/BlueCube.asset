@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf995f7411e5a3429d34c301ca24641, type: 3}
+  m_Name: BlueCube
+  m_EditorClassIdentifier: 
+  title: BlueCube
+  thumbnail: {fileID: 21300000, guid: bd50da7b8198c2c4b98cd453f698c30e, type: 3}
+  cubePrefab: {fileID: 2919298105730889846, guid: 2a3844856088c49418786834cc8d9f63,
+    type: 3}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf995f7411e5a3429d34c301ca24641, type: 3}
+  m_Name: RedBox
+  m_EditorClassIdentifier: 
+  title: RedBox
+  thumbnail: {fileID: 21300000, guid: 751b4c59fefd9a241b0fddf6d177512c, type: 3}
+  cubePrefab: {fileID: 6530831493426539969, guid: 1024c682d950e114f892a75106949a2c,
+    type: 3}
