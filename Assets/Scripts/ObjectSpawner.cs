@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ObjectSpawner : MonoBehaviour
 {
+
+    
+    #region Fields And Variables
     [SerializeField] GameObject currentObjectToSpawn;
     [SerializeField] ISpawnableButton currentPressedButton;
     [SerializeField] LayerMask detectionLayers;
     private static List<GameObject> spawns = new List<GameObject>();
-    
-    #region Fields And Variables
+    [Inject] UIListOfObjectsManager _uiListOfObjectsManager;
     #endregion
     #region Unity Methods
     // Update is called once per frame
@@ -30,7 +33,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void CancelSpawning()
     {
-        currentPressedButton?.OnClickToSpawn();
+        _uiListOfObjectsManager.OnSpawnFinished();
         Destroy(currentObjectToSpawn);
             currentObjectToSpawn = null;
             currentPressedButton = null;
@@ -61,7 +64,7 @@ public class ObjectSpawner : MonoBehaviour
         // Perform the raycast to detect floor using the detectionLayers
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, detectionLayers))
         {
-            // Move currentObjectToSpawn to the hit point using DOTween
+            // Move currentObjectToSpawn to the hit point with slerp
             currentObjectToSpawn.transform.position =Vector3.Slerp(currentObjectToSpawn.transform.position, hit.point, 0.8f);
             currentObjectToSpawn.SetActive(true);
 
@@ -71,6 +74,7 @@ public class ObjectSpawner : MonoBehaviour
                 if(currentObjectToSpawn.GetComponent<IEatable>() != null) { spawns.Add(currentObjectToSpawn); }
                 if (currentPressedButton != null)
                 {
+                    _uiListOfObjectsManager.OnSpawnFinished();
                     currentPressedButton.OnClickToSpawn();
  
                 }

@@ -50,13 +50,13 @@ public class UIListOfObjectsManager : MonoBehaviour
     {
         ButtonCube cubeItem = _buttonCubeFactory.Create(item, content);
         cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
-        cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
+      //  cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
         cubeList.Add(cubeItem);
     } 
     /// <summary>
     /// Called after actionIsFinished or canceled
     /// </summary>
-    private void OnSpawnFinished()
+    public void OnSpawnFinished()
     {
         _uiAnimation?.MoveToOriginalPosition();
     }
