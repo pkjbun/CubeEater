@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6c5e3eb0f22bc47afc621cbc2c379a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonCubePrefab: {fileID: 1911263746917246380, guid: f30376a9db31e8147a7b4f3faa0a0505,
+    type: 3}
 --- !u!4 &167215295
 Transform:
   m_ObjectHideFlags: 0

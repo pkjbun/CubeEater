@@ -19,32 +19,40 @@ public class UIListOfObjectsManager : MonoBehaviour
     public List<ButtonCube> CubeList { get => cubeList; }
     [Inject]
     private ObjectSpawner _objectSpawner;
-
     [Inject]
     private UIAnimation _uiAnimation;
+    [Inject]
+    private ButtonCube.Factory _buttonCubeFactory;
     #endregion
     #region Unity Methods
     // Start is called before the first frame update
     void Start()
     {
-        foreach(var item in itemList.Items) { 
-            ButtonCube cubeItem=  Instantiate(cubeButtonPrefab,content);
-            cubeItem.Setup(item);
-            cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
-            cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
-            cubeList.Add(cubeItem);
+        foreach(var item in itemList.Items)
+        {
+            CreateButton(item);
         }
-        if(inputField != null)
+        if (inputField != null)
         {
             inputField.onValueChanged.AddListener(Filter);
         }
     }
+
+
+
     void Update()
     {
         
     }
 #endregion
-#region Custom Methods   
+#region Custom Methods     
+    private void CreateButton(ItemData item)
+    {
+        ButtonCube cubeItem = _buttonCubeFactory.Create(item, content);
+        cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
+        cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
+        cubeList.Add(cubeItem);
+    } 
     /// <summary>
     /// Called after actionIsFinished or canceled
     /// </summary>

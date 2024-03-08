@@ -2,29 +2,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Zenject;
 
 public class ButtonCube : MonoBehaviour, ISpawnableButton
 {
     #region Fields And Variables
     [SerializeField] private TextMeshProUGUI buttonTitle;
     [SerializeField] private Image image;
-    [SerializeField] ItemData itemData;
+    ItemData _itemData;
     public UnityEvent OnActionFinished = new UnityEvent();
     #endregion
-#region Unity Methods
-    
-#endregion
-#region Custom Methods
-    public void Setup(ItemData ItemData)
+    #region Unity Methods
+
+    #endregion
+    #region Custom Methods
+    /// <summary>
+    /// Zenject construct method
+    /// </summary>
+    /// <param name="itemData"></param>
+    /// <param name="transform"></param>
+    [Inject]
+    public void Construct(ItemData itemData, Transform transform)
     {
-        itemData = ItemData;
+        _itemData = itemData;
+        gameObject.transform.SetParent ( transform);
         SetProperties();
     }
-
     private void SetProperties()
-    {   if (itemData == null) return;
-        buttonTitle.text=itemData.title;
-        image.sprite = itemData.thumbnail;
+    {   if (_itemData == null) return;
+        buttonTitle.text=_itemData.title;
+        image.sprite = _itemData.thumbnail;
     }
     /// <summary>
     /// Get tile of object from object data
@@ -32,7 +39,7 @@ public class ButtonCube : MonoBehaviour, ISpawnableButton
     /// <returns></returns>
     public string GetItemName()
     {   
-      string title= itemData?  itemData.name :  "";
+      string title= _itemData?  _itemData.name :  "";
         return title;
     }
 
@@ -43,11 +50,15 @@ public class ButtonCube : MonoBehaviour, ISpawnableButton
 
     public GameObject GetObjectToSpawn()
     {
-        if(itemData == null) return null;
+        if(_itemData == null) return null;
         else
         {
-           return itemData.cubePrefab;
+           return _itemData.cubePrefab;
         }
     }
+    public class Factory : PlaceholderFactory<ItemData, Transform, ButtonCube>
+    {
+    }
+
     #endregion
 }
