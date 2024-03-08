@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Zenject;
 
 public class UIListOfObjectsManager : MonoBehaviour
 {
@@ -14,9 +15,13 @@ public class UIListOfObjectsManager : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] List<ButtonCube> cubeList;
     [SerializeField] TMP_InputField inputField;
-    [SerializeField] UIAnimation uIAnimation;
     public UnityEvent<ISpawnableButton> buttonCubeEvent=new UnityEvent<ISpawnableButton>();
     public List<ButtonCube> CubeList { get => cubeList; }
+    [Inject]
+    private ObjectSpawner _objectSpawner;
+
+    [Inject]
+    private UIAnimation _uiAnimation;
     #endregion
     #region Unity Methods
     // Start is called before the first frame update
@@ -45,7 +50,7 @@ public class UIListOfObjectsManager : MonoBehaviour
     /// </summary>
     private void OnSpawnFinished()
     {
-        uIAnimation?.MoveToOriginalPosition();
+        _uiAnimation?.MoveToOriginalPosition();
     }
     /// <summary>
     /// Handles Button Clicked
@@ -53,7 +58,8 @@ public class UIListOfObjectsManager : MonoBehaviour
     /// <param name="item">clicked button</param>
     private void OnItemClicked(ISpawnableButton item)
     {
-        uIAnimation?.Animate();
+        _uiAnimation?.Animate();
+        _objectSpawner.SpawnStart(item);
         buttonCubeEvent?.Invoke(item);
     }
     /// <summary>
