@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\UI\ButtonCube.cs" />
     <Compile Include="Assets\Scripts\Behaviour\CubeBehaviour.cs" />
     <Compile Include="Assets\Scripts\Items\Interfaces\IEatable.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemDestroyer.cs" />
     <Compile Include="Assets\Scripts\UI\UIListOfObjectsManager.cs" />
     <Compile Include="Assets\Scripts\Items\Interfaces\ISpawnable.cs" />
     <Compile Include="Assets\Scripts\Items\ItemList.cs" />

@@ -458,10 +458,6 @@
       <HintPath>Assets\ThirdParty\DOTween\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DOTweenUpgradeManager">
-      <HintPath>Assets\ThirdParty\DOTween\Plugins\Demigiant\DOTween\Editor\DOTweenUpgradeManager.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Zenject-usage">
       <HintPath>Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
       <Private>False</Private>

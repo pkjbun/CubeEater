@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CubeBehaviour : MonoBehaviour, ISpawnable, IEatable
@@ -30,5 +27,10 @@ public void OnObjectSpawned()
         rb.isKinematic = false;
         rb.useGravity = true;
     }
-#endregion
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
+    #endregion
 }

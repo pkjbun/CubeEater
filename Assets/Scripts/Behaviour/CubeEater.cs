@@ -50,7 +50,7 @@ public class CubeEater : MonoBehaviour, ISpawnable
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         if(rb == null ) rb= gameObject.AddComponent<Rigidbody>();
         rb.isKinematic = false;
-        
+        rb.angularVelocity = Vector3.zero;
     }
     /// <summary>
     /// Function to Find Closest Cube
@@ -79,12 +79,17 @@ public class CubeEater : MonoBehaviour, ISpawnable
     {
         if (collision.gameObject == targetCube)
         {
-            Destroy(targetCube); // Destroy the cube
+            collision.gameObject.GetComponent<ISpawnable>()?.DestroyObject(); // Destroy the cube
             targetCube = null; // Clear the current target cube
             if(rb==null) rb = gameObject.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+    }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
     }
     #endregion
 }
