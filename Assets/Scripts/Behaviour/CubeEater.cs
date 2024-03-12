@@ -1,55 +1,50 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class CubeEater : MonoBehaviour, ISpawnable
 {
 
     #region Fields And Variables
-    [SerializeField] private GameObject targetCube = null;
+    private GameObject targetCube = null;
     [SerializeField] private float minDistance;
     [SerializeField] private bool spawned=false;
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private bool isMoving;
+    private PhysicsBasedMover mover;
     #endregion
     #region Unity Methods
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {   if(rb==null) { rb = GetComponent<Rigidbody>(); }
+        mover = new PhysicsBasedMover(rb,this.transform,speed);
     }
     // Update is called once per frame
     void Update()
-    {
-        if (!spawned) return;
+    {   if (!spawned) return;
         if (targetCube != null)
-        {   isMoving = true;
-            MoveTowardTarget();
+        {
+            mover.MoveTowards(targetCube.transform.position);
         }
         else
         {
-            targetCube= FindNearestCube();
+            
+            FindAndSetNearestCubeAsTarget();
         }
     }
+
+    
     #endregion
     #region Custom Methods
     /// <summary>
-    /// MoveToward targetCube
+    /// Use to find nearest cube and if so 
     /// </summary>
-    private void MoveTowardTarget()
+    private void FindAndSetNearestCubeAsTarget()
     {
-        if (!isMoving) return;
-        if (targetCube == null) return;
-        Vector3 directionToTarget = targetCube.transform.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
-
-        // Move towards the target cube
-        Vector3 moveDirection = directionToTarget.normalized * speed * Time.deltaTime;
-        rb.MovePosition(rb.position + moveDirection);
-
+        targetCube = FindNearestCube();
        
     }
 
@@ -89,11 +84,8 @@ public class CubeEater : MonoBehaviour, ISpawnable
         if (collision.gameObject == targetCube)
         {
             collision.gameObject.GetComponent<ISpawnable>()?.DestroyObject(); // Destroy the cube
-            targetCube = null; // Clear the current target cube
-            if(rb==null) rb = gameObject.GetComponent<Rigidbody>();
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            isMoving = false;
+            mover.StopMovement();
+            targetCube = null;
         }
     }
 

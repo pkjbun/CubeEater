@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbbe30ec41ceb84e8dd1ac432f5cd09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetCube: {fileID: 0}
   minDistance: 0
   spawned: 0
   speed: 2

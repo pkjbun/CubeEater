@@ -49,6 +49,7 @@ public class UIListOfObjectsManager : MonoBehaviour
     private void CreateButton(ItemData item)
     {
         ButtonCube cubeItem = _buttonCubeFactory.Create(item, content);
+        cubeItem.transform.localScale = Vector3.one;
         cubeItem.GetComponent<Button>()?.onClick.AddListener(() => OnItemClicked(cubeItem));
       //  cubeItem.OnActionFinished.AddListener(OnSpawnFinished);
         cubeList.Add(cubeItem);
