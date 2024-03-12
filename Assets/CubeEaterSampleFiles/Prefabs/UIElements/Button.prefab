@@ -157,7 +157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonTitle: {fileID: 7110502487305417889}
   image: {fileID: 1728406052156776330}
-  itemData: {fileID: 0}
+  OnActionFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7642669780932432414
 GameObject:
   m_ObjectHideFlags: 0

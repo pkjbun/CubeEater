@@ -46,12 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbbe30ec41ceb84e8dd1ac432f5cd09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCube: {fileID: 0}
   minDistance: 0
   spawned: 0
   speed: 2
   rb: {fileID: 4429444545895697508}
-  isMoving: 0
 --- !u!54 &4429444545895697508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,8 +72,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
