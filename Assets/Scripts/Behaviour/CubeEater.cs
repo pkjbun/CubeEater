@@ -7,11 +7,12 @@ public class CubeEater : MonoBehaviour, ISpawnable
 {
 
     #region Fields And Variables
-    private GameObject targetCube = null;
+    [SerializeField] private GameObject targetCube = null;
     [SerializeField] private float minDistance;
     [SerializeField] private bool spawned=false;
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private bool isMoving;
     #endregion
     #region Unity Methods
     // Start is called before the first frame update
@@ -23,27 +24,35 @@ public class CubeEater : MonoBehaviour, ISpawnable
     void Update()
     {
         if (!spawned) return;
-        FindAndMoveToward();
+        if (targetCube != null)
+        {   isMoving = true;
+            MoveTowardTarget();
+        }
+        else
+        {
+            targetCube= FindNearestCube();
+        }
     }
     #endregion
     #region Custom Methods
     /// <summary>
-    /// Finds Nearest Cube and moves toward it
+    /// MoveToward targetCube
     /// </summary>
-  private void FindAndMoveToward()
+    private void MoveTowardTarget()
     {
-        if (targetCube == null)
-        {
-            targetCube = FindNearestCube();
-            if (targetCube != null)
-            {
-                transform.DOMove(targetCube.transform.position, minDistance/speed).SetEase(Ease.Linear);
-                Vector3 directionToTarget = targetCube.transform.position - transform.position;
-                Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
-                transform.DORotateQuaternion(lookRotation, 0.5f);
-            }
-        }
+        if (!isMoving) return;
+        if (targetCube == null) return;
+        Vector3 directionToTarget = targetCube.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
+
+        // Move towards the target cube
+        Vector3 moveDirection = directionToTarget.normalized * speed * Time.deltaTime;
+        rb.MovePosition(rb.position + moveDirection);
+
+       
     }
+
     public void OnObjectSpawned()
     {   spawned = true;
         gameObject.transform.position += new Vector3(0, 0.1f, 0);
@@ -84,6 +93,7 @@ public class CubeEater : MonoBehaviour, ISpawnable
             if(rb==null) rb = gameObject.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            isMoving = false;
         }
     }
 
